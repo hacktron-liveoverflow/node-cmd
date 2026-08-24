@@ -3,6 +3,7 @@
 const groups = [
     require('./unit.test.js'),
     require('./functional.test.js'),
+    require('./behavioral.test.js'),
     require('./integration.test.js'),
     require('./regression.test.js')
 ];

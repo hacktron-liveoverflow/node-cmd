@@ -7,7 +7,7 @@
         <meta name="theme-color" content="#060b16">
         <meta property="og:type" content="website">
         <meta property="og:title" content="Testing and coverage — node-cmd v6">
-        <meta property="og:description" content="48 focused JavaScript tests in four non-overlapping sets, native V8 coverage gates, three operating systems, two Node releases, and packed-package verification.">
+        <meta property="og:description" content="53 focused JavaScript tests in five independently runnable sets, native V8 coverage gates, three operating systems, two Node releases, and packed-package verification.">
         <meta property="og:url" content="https://riaevangelist.github.io/node-cmd/testing.html">
         <meta property="og:image" content="https://riaevangelist.github.io/node-cmd/og.png">
         <meta name="twitter:card" content="summary_large_image">
@@ -32,7 +32,7 @@
             </header>
 
             <section class="metric-grid" aria-label="Current verification results">
-                <article class="metric-card"><strong>48 / 48</strong><span>focused tests passing</span></article>
+                <article class="metric-card"><strong>53 / 53</strong><span>focused tests passing</span></article>
                 <article class="metric-card"><strong>100%</strong><span>statements</span></article>
                 <article class="metric-card"><strong>100%</strong><span>branches</span></article>
                 <article class="metric-card"><strong>100%</strong><span>functions and lines</span></article>
@@ -48,6 +48,7 @@
     "test": "node ./test/node.mjs",
     "test:unit": "node ./test/node.mjs unit",
     "test:functional": "node ./test/node.mjs functional",
+    "test:behavioral": "node ./test/node.mjs behavioral",
     "test:integration": "node ./test/node.mjs integration",
     "test:regression": "node ./test/node.mjs regression",
     "coverage": "vanilla-test coverage node",
@@ -84,18 +85,19 @@
 
                 <section class="doc-section">
                     <div class="section-kicker">03 / Behavior inventory</div>
-                    <h2>48 focused cases in four non-overlapping sets</h2>
-                    <p>The former broad scenarios are split at their assertion boundaries. A behavior appears in exactly one set, so the larger count represents smaller reportable contracts rather than duplicated matrix runs.</p>
+                    <h2>53 focused cases across five independently runnable sets</h2>
+                    <p>The original 48 cases keep narrow assertion boundaries. Five black-box Behavioral scenarios add composed and temporal consumer outcomes without changing the runtime implementation or duplicating CI matrix runs.</p>
                     <div class="table-wrap">
-                        <table class="reference-table"><thead><tr><th>Set</th><th>Cases</th><th>Primary contract</th><th>Run alone</th></tr></thead><tbody><tr><td><strong>Unit</strong></td><td>5</td><td>CommonJS and ESM surface plus compatibility aliases</td><td><code>npm run test:unit</code></td></tr><tr><td><strong>Functional</strong></td><td>17</td><td>Normal callback, Promise, sync, direct-file, and stream behavior</td><td><code>npm run test:functional</code></td></tr><tr><td><strong>Integration</strong></td><td>8</td><td>Process I/O, environment, cancellation, isolation, and literal arguments</td><td><code>npm run test:integration</code></td></tr><tr><td><strong>Regression</strong></td><td>18</td><td>Overloads, omitted values, buffers, validation, and error normalization</td><td><code>npm run test:regression</code></td></tr><tr><td><strong>Total</strong></td><td><strong>48</strong></td><td>Every public execution path and compatibility edge</td><td><code>npm test</code></td></tr></tbody></table>
+                        <table class="reference-table"><thead><tr><th>Set</th><th>Cases</th><th>Primary contract</th><th>Run alone</th></tr></thead><tbody><tr><td><strong>Unit</strong></td><td>5</td><td>CommonJS and ESM surface plus compatibility aliases</td><td><code>npm run test:unit</code></td></tr><tr><td><strong>Functional</strong></td><td>17</td><td>Normal callback, Promise, sync, direct-file, and stream behavior</td><td><code>npm run test:functional</code></td></tr><tr><td><strong>Behavioral</strong></td><td>5</td><td>Shell composition, failure output, buffer limits, timeouts, and live output</td><td><code>npm run test:behavioral</code></td></tr><tr><td><strong>Integration</strong></td><td>8</td><td>Process I/O, environment, cancellation, isolation, and literal arguments</td><td><code>npm run test:integration</code></td></tr><tr><td><strong>Regression</strong></td><td>18</td><td>Overloads, omitted values, buffers, validation, and error normalization</td><td><code>npm run test:regression</code></td></tr><tr><td><strong>Total</strong></td><td><strong>53</strong></td><td>Public execution paths, compatibility edges, and consumer workflows</td><td><code>npm test</code></td></tr></tbody></table>
                     </div>
                     <ol class="test-inventory">
                         <li><strong>Unit:</strong> exact CommonJS exports, both Promise aliases, ESM default identity, and ESM named-export identity.</li>
                         <li><strong>Functional:</strong> successful and failing shell/direct calls, callbacks, Promises, sync envelopes, buffers, process handles, and live streams.</li>
+                        <li><strong>Behavioral:</strong> shell command chaining, partial callback output, max-buffer rejection, direct-process timeout, and output observed before stream exit.</li>
                         <li><strong>Integration:</strong> cwd and environment forwarding, interactive stdin, AbortSignal, parent stderr isolation, literal argv, encoding, and explicit stdio.</li>
                         <li><strong>Regression:</strong> callback/options overloads, null and undefined arguments, safe sync defaults, captured buffer failures, validation, and non-Error failures.</li>
                     </ol>
-                    <div class="callout"><strong>Exact case names.</strong> The published <a href="https://riaevangelist.github.io/node-cmd/coverage/test-results.json">test-results.json</a> lists all 48 passing descriptions in execution order. The source is divided into <a href="https://github.com/RIAEvangelist/node-cmd/blob/main/test/unit.test.js">unit</a>, <a href="https://github.com/RIAEvangelist/node-cmd/blob/main/test/functional.test.js">functional</a>, <a href="https://github.com/RIAEvangelist/node-cmd/blob/main/test/integration.test.js">integration</a>, and <a href="https://github.com/RIAEvangelist/node-cmd/blob/main/test/regression.test.js">regression</a> files.</div>
+                    <div class="callout"><strong>Exact case names.</strong> The published <a href="https://riaevangelist.github.io/node-cmd/coverage/test-results.json">test-results.json</a> lists all 53 passing descriptions in execution order. The source is divided into <a href="https://github.com/RIAEvangelist/node-cmd/blob/main/test/unit.test.js">unit</a>, <a href="https://github.com/RIAEvangelist/node-cmd/blob/main/test/functional.test.js">functional</a>, <a href="https://github.com/RIAEvangelist/node-cmd/blob/main/test/behavioral.test.js">behavioral</a>, <a href="https://github.com/RIAEvangelist/node-cmd/blob/main/test/integration.test.js">integration</a>, and <a href="https://github.com/RIAEvangelist/node-cmd/blob/main/test/regression.test.js">regression</a> files.</div>
                 </section>
 
                 <section class="doc-section">
@@ -112,6 +114,7 @@
 npm test
 npm run test:unit
 npm run test:functional
+npm run test:behavioral
 npm run test:integration
 npm run test:regression
 npm run coverage
@@ -120,7 +123,7 @@ npm run site:check
 
 # everything in release order
 npm run verify</code></pre>
-                    <dl class="contract-list"><div><dt><code>npm test</code></dt><dd>Runs all 48 cases once through <code>vanilla-test</code>.</dd></div><div><dt><code>npm run test:*</code></dt><dd>Runs Unit, Functional, Integration, or Regression independently while debugging.</dd></div><div><dt><code>npm run coverage</code></dt><dd>Runs all four sets under the configured Node coverage thresholds.</dd></div><div><dt><code>npm run test:package</code></dt><dd>Tests what npm consumers actually receive, not the repository worktree.</dd></div><div><dt><code>npm run site:check</code></dt><dd>Checks every documentation page, local link, shared asset, and client script.</dd></div></dl>
+                    <dl class="contract-list"><div><dt><code>npm test</code></dt><dd>Runs all 53 cases once through <code>vanilla-test</code>.</dd></div><div><dt><code>npm run test:*</code></dt><dd>Runs Unit, Functional, Behavioral, Integration, or Regression independently while debugging.</dd></div><div><dt><code>npm run coverage</code></dt><dd>Runs all five sets under the configured Node coverage thresholds.</dd></div><div><dt><code>npm run test:package</code></dt><dd>Tests what npm consumers actually receive, not the repository worktree.</dd></div><div><dt><code>npm run site:check</code></dt><dd>Checks every documentation page, local link, shared asset, and client script.</dd></div></dl>
                 </section>
 
                 <section class="doc-section">

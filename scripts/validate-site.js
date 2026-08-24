@@ -102,7 +102,7 @@ const index = pages.get('index.html');
 assert.match(index, /Command-line power\s*<em>for JavaScript\.<\/em>/i);
 assert.match(index, /npm install node-cmd/);
 assert.match(index, /zero runtime dependencies/i);
-assert.match(index, /48\s*\/?\s*48/);
+assert.match(index, /53\s*\/?\s*53/);
 assert.match(index, /Why node-cmd\?/i);
 assert.match(index, /Node already provides\s*<code>node:child_process<\/code>/i);
 assert.match(index, /same implementation on Node\.js 22\.12\+/i);
@@ -124,10 +124,11 @@ assert.match(api, /process-tree boundary/i);
 
 const testing = pages.get('testing.html');
 assert.match(testing, /vanilla-test(?:@|<\/code>\s*)2\.1\.0/i);
-assert.match(testing, /48\s*\/\s*48/);
+assert.match(testing, /53\s*\/\s*53/);
 for (const [name, count] of [
     ['Unit', 5],
     ['Functional', 17],
+    ['Behavioral', 5],
     ['Integration', 8],
     ['Regression', 18]
 ]) {
@@ -208,7 +209,7 @@ assert.match(pages.get('migration.html'), /v5\s*→\s*v6/);
 assert.match(pages.get('migration.html'), /Upgrade checklist/);
 assert.match(pages.get('changelog.html'), /node-cmd 6\.0\.0/);
 assert.match(pages.get('changelog.html'), /2026-08-14/);
-assert.match(pages.get('changelog.html'), /Current test gate<\/span><strong>48\s*\/\s*48/);
+assert.match(pages.get('changelog.html'), /Current test gate<\/span><strong>53\s*\/\s*53/);
 assert.match(pages.get('changelog.html'), /A 17-case JavaScript API suite/);
 
 const tabs = new Set(

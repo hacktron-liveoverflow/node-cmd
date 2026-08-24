@@ -32,6 +32,7 @@
     "test": "node ./test/node.mjs",
     "test:unit": "node ./test/node.mjs unit",
     "test:functional": "node ./test/node.mjs functional",
+    "test:behavioral": "node ./test/node.mjs behavioral",
     "test:integration": "node ./test/node.mjs integration",
     "test:regression": "node ./test/node.mjs regression",
     "benchmark": "node ./benchmark/run.js",

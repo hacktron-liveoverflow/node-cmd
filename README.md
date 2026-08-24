@@ -313,19 +313,21 @@ Prefer `runFile*()` or `runStream()` for portable executable calls. Windows `.ba
 
 The project uses [`vanilla-test` 2.1.0](https://github.com/RIAEvangelist/vanilla-test) for both test execution and Node coverage. It is the only direct development dependency; the published `node-cmd` package keeps zero runtime dependencies.
 
-The JavaScript suite contains 48 focused, non-overlapping cases. Each behavior is represented once and assigned to the set that best describes the contract it protects.
+The JavaScript suite contains 53 focused cases across five independently runnable sets. The Behavioral set composes public APIs into black-box consumer outcomes, while the other sets keep narrower contract ownership.
 
 | Test set | Cases | Focus |
 | --- | ---: | --- |
 | Unit | 5 | CommonJS and ESM surface plus compatibility aliases |
 | Functional | 17 | Normal callback, Promise, synchronous, direct-file, and streaming behavior |
+| Behavioral | 5 | Shell composition, failure output, buffer limits, timeouts, and live output |
 | Integration | 8 | Process I/O, environment, cancellation, stderr isolation, and literal arguments |
 | Regression | 18 | Overloads, omitted values, buffers, validation, and error normalization |
-| **Total** | **48** | **Every public execution path and compatibility edge** |
+| **Total** | **53** | **Public execution paths, compatibility edges, and consumer workflows** |
 
 | Gate | Current result | Required |
 | --- | ---: | ---: |
-| Behavioral tests | 48 / 48 passing | All passing |
+| Full JavaScript suite | 53 / 53 passing | All passing |
+| Behavioral set | 5 / 5 passing | All passing |
 | Statements | 100% | 100% |
 | Branches | 100% | 100% |
 | Functions | 100% | 100% |
@@ -340,6 +342,7 @@ npm ci
 npm test
 npm run test:unit
 npm run test:functional
+npm run test:behavioral
 npm run test:integration
 npm run test:regression
 npm run coverage
@@ -348,7 +351,7 @@ npm run benchmark
 npm run benchmark:chart
 ```
 
-The four `test:*` commands run one set independently; `npm test` and `npm run coverage` always run all 48 cases. Coverage writes the local HTML report to `coverage/node/index.html`. `npm run benchmark` prints a local comparison; pass `--output <file>` to retain its raw samples. `npm run benchmark:chart` regenerates the committed README charts from the reference JSON. `npm run verify` runs the full suite, coverage gates, packed-package smoke test, and static-site validation together.
+The five `test:*` commands run one set independently; `npm test` and `npm run coverage` always run all 53 cases. Coverage writes the local HTML report to `coverage/node/index.html`. `npm run benchmark` prints a local comparison; pass `--output <file>` to retain its raw samples. `npm run benchmark:chart` regenerates the committed README charts from the reference JSON. `npm run verify` runs the full suite, coverage gates, packed-package smoke test, and static-site validation together.
 
 When upgrading from v5, read [MIGRATION.md](MIGRATION.md). Release details are in [CHANGELOG.md](CHANGELOG.md), and command-execution guidance is in [SECURITY.md](SECURITY.md).
 

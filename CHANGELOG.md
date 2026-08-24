@@ -18,6 +18,7 @@ All notable changes to this project are documented here.
 - Published the normalized, ANSI-free `test-results.json` artifact alongside the engineer-readable HTML coverage report.
 - Added focused overload, explicit-stdio, and non-Error fallback checks, bringing all 2.1 native V8 range metrics and enforced thresholds to 100%.
 - Split the same behavior coverage into 48 focused, non-overlapping Unit, Functional, Integration, and Regression cases with independent `test:*` commands; runtime code and package version are unchanged.
+- Added five independently runnable Behavioral scenarios for shell composition, partial failure output, buffer limits, direct-process timeouts, and output observed before stream completion, bringing the suite to 53 cases.
 
 ## [6.0.0] - 2026-08-14
 
