@@ -97,6 +97,9 @@ jobs:
       - name: Install package metadata
         run: npm ci
 
+      - name: Verify Node-only runtime contract
+        run: npm run test:runtime-contract
+
       - name: Install and import the packed package
         run: npm run test:package
 
@@ -106,8 +109,8 @@ jobs:
       - name: Upload npm artifact
         uses: actions/upload-artifact@v7
         with:
-          name: node-cmd-v6-package
-          path: node-cmd-6.0.0.tgz
+          name: node-cmd-6.0.1-package
+          path: node-cmd-6.0.1.tgz
           if-no-files-found: error
           retention-days: 14
 
@@ -159,6 +162,11 @@ jobs:
           test -f _site/script.js
           test -f _site/og.png
           test -f _site/benchmark-results.json
+
+          for page in index api testing benchmarks security migration changelog; do
+            count="$(grep -o 'data-runtime-boundary' "_site/$page.html" | wc -l)"
+            test "$count" -eq 1
+          done
 
       - name: Add the Node coverage report
         uses: actions/download-artifact@v8

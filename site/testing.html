@@ -21,7 +21,7 @@
     <body data-page="testing">
         <a class="skip-link" href="#main">Skip to content</a>
         <div class="scroll-progress" aria-hidden="true"><span></span></div>
-        <header class="site-header" data-header><div class="header-inner"><a class="wordmark" href="./index.html" aria-label="node-cmd home"><span class="wordmark-mark" aria-hidden="true">&gt;_</span><span class="wordmark-name">node-cmd</span><span class="version-badge">v6.0.0</span></a><button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-navigation" data-menu-button><span class="menu-button-label">Menu</span><span class="menu-button-icon" aria-hidden="true"><i></i><i></i></span></button><nav class="primary-navigation" id="primary-navigation" aria-label="Documentation" data-navigation><a href="./index.html">Home</a><a href="./api.html">API</a><a href="./testing.html" aria-current="page">Testing</a><a href="./benchmarks.html">Benchmarks</a><a href="./security.html">Security</a><a href="./migration.html">Migration</a><a href="./changelog.html">Changes</a><a class="nav-github" href="https://github.com/RIAEvangelist/node-cmd">GitHub <span aria-hidden="true">↗</span></a></nav></div></header>
+        <header class="site-header" data-header><div class="header-inner"><a class="wordmark" href="./index.html" aria-label="node-cmd home"><span class="wordmark-mark" aria-hidden="true">&gt;_</span><span class="wordmark-name">node-cmd</span><span class="version-badge">v6.0.1</span></a><button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-navigation" data-menu-button><span class="menu-button-label">Menu</span><span class="menu-button-icon" aria-hidden="true"><i></i><i></i></span></button><nav class="primary-navigation" id="primary-navigation" aria-label="Documentation" data-navigation><a href="./index.html">Home</a><a href="./api.html">API</a><a href="./testing.html" aria-current="page">Testing</a><a href="./benchmarks.html">Benchmarks</a><a href="./security.html">Security</a><a href="./migration.html">Migration</a><a href="./changelog.html">Changes</a><a class="nav-github" href="https://github.com/RIAEvangelist/node-cmd">GitHub <span aria-hidden="true">↗</span></a></nav></div></header>
 
         <main id="main" class="doc-main">
             <header class="page-hero">
@@ -30,6 +30,8 @@
                 <p>The public API is exercised as JavaScript through the author’s own <code>vanilla-test</code> module, then measured without transforming node-cmd source.</p>
                 <div class="page-actions"><a class="button button-primary" href="./coverage/">Open the HTML coverage report</a><a class="button button-secondary" href="https://github.com/RIAEvangelist/node-cmd/actions/workflows/ci.yml">View CI runs ↗</a></div>
             </header>
+
+            <aside class="callout runtime-boundary" data-runtime-boundary aria-label="Runtime boundary"><strong>Runtime boundary.</strong> node-cmd is Node.js-only. It does not run in browsers, with or without a bundler. Its API requires <code>node:child_process</code> and operating-system process access; “native ESM” means native Node.js ESM.</aside>
 
             <section class="metric-grid" aria-label="Current verification results">
                 <article class="metric-card"><strong>53 / 53</strong><span>focused tests passing</span></article>
@@ -51,14 +53,16 @@
     "test:behavioral": "node ./test/node.mjs behavioral",
     "test:integration": "node ./test/node.mjs integration",
     "test:regression": "node ./test/node.mjs regression",
+    "test:runtime-contract": "node ./scripts/validate-runtime-contract.js",
     "coverage": "vanilla-test coverage node",
-    "verify": "npm test &amp;&amp; npm run coverage &amp;&amp; npm run test:package &amp;&amp; npm run site:check"
+    "verify": "npm test &amp;&amp; npm run coverage &amp;&amp; npm run test:runtime-contract &amp;&amp; npm run test:package &amp;&amp; npm run site:check"
   },
   "devDependencies": {
     "vanilla-test": "2.1.0"
   }
 }</code></pre>
                     <p>The suite uses <code>VanillaTest</code> for case lifecycle and reporting. Node’s built-in <code>node:assert/strict</code> supplies precise deep equality, rejection, and pattern assertions; no separate assertion framework is installed.</p>
+                    <div class="callout"><strong>Native-browser conformance: not applicable.</strong> The documentation site runs browser JavaScript, but the node-cmd package runtime does not. No browser entry, import map, playground, or Chrome inventory is provided because browsers cannot expose <code>node:child_process</code>. Runtime-dependency conflict testing is likewise not applicable because the package has zero runtime dependencies.</div>
                 </section>
 
                 <section class="doc-section">
@@ -104,7 +108,7 @@
                     <div class="section-kicker">04 / CI matrix</div>
                     <h2>Minimum runtime, current LTS, and three operating systems</h2>
                     <div class="table-wrap"><table class="reference-table"><thead><tr><th>Operating system</th><th>Node 22.12</th><th>Node 24</th><th>Purpose</th></tr></thead><tbody><tr><td>Ubuntu</td><td>Full suite</td><td>Full suite</td><td>Unix shell/process behavior</td></tr><tr><td>macOS</td><td>Full suite</td><td>Full suite</td><td>Darwin process behavior</td></tr><tr><td>Windows</td><td>Full suite</td><td>Full suite</td><td><code>ComSpec</code>, quoting, and Windows process behavior</td></tr></tbody></table></div>
-                    <p>A separate Node 24 job enforces coverage. A package-smoke job creates the npm tarball, installs it into a clean temporary consumer, verifies CommonJS and ESM imports, confirms the v6 version and shipped files, and proves that development tooling is not installed for consumers.</p>
+                    <p>A separate Node 24 job enforces coverage. A package-smoke job creates the npm tarball, installs it into a clean temporary consumer, verifies bare CommonJS and Node.js ESM imports, confirms version 6.0.1 and the exact shipped files, and proves that development tooling is not installed for consumers.</p>
                 </section>
 
                 <section class="doc-section">
@@ -117,6 +121,7 @@ npm run test:functional
 npm run test:behavioral
 npm run test:integration
 npm run test:regression
+npm run test:runtime-contract
 npm run coverage
 npm run test:package
 npm run site:check

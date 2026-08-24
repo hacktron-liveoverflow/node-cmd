@@ -24,11 +24,19 @@ const pages = new Map(pageNames.map((name) => [
 const css = readFileSync(resolve(siteRoot, 'styles.css'), 'utf8');
 const javascript = readFileSync(resolve(siteRoot, 'script.js'), 'utf8');
 const socialImage = statSync(resolve(siteRoot, 'og.png'));
+const packageMetadata = JSON.parse(readFileSync(resolve(repositoryRoot, 'package.json'), 'utf8'));
 const readme = readFileSync(resolve(repositoryRoot, 'README.md'), 'utf8');
+const packedDocumentation = new Map([
+    ['README.md', readme],
+    ['MIGRATION.md', readFileSync(resolve(repositoryRoot, 'MIGRATION.md'), 'utf8')],
+    ['SECURITY.md', readFileSync(resolve(repositoryRoot, 'SECURITY.md'), 'utf8')],
+    ['CHANGELOG.md', readFileSync(resolve(repositoryRoot, 'CHANGELOG.md'), 'utf8')]
+]);
 const benchmarkResults = JSON.parse(readFileSync(resolve(repositoryRoot, 'benchmark/reference.json'), 'utf8'));
 const dispatchChart = readFileSync(resolve(repositoryRoot, 'assets/node-cmd-dispatch-benchmark.svg'), 'utf8');
 const processChart = readFileSync(resolve(repositoryRoot, 'assets/node-cmd-process-benchmark.svg'), 'utf8');
 const assembledPaths = new Set(['benchmark-results.json']);
+const runtimeBoundary = 'node-cmd is Node.js-only. It does not run in browsers, with or without a bundler.';
 const voidElements = new Set([
     'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
     'link', 'meta', 'param', 'source', 'track', 'wbr'
@@ -74,6 +82,10 @@ for (const [name, html] of pages) {
     assert.match(html, /src="\.\/script\.js"/i, `${name} needs the shared script`);
     assert.doesNotMatch(html, /(?:href|src)="http:\/\//i, `${name} contains an insecure asset or link`);
     assert.doesNotMatch(html, /\bpreview\b|not yet published|current npm release remains v5/i, `${name} contains release-preview framing`);
+    assert.equal((html.match(/data-runtime-boundary/g) || []).length, 1, `${name} needs exactly one visible runtime-boundary callout`);
+    assert.ok(html.includes(runtimeBoundary), `${name} needs the canonical Node-only boundary`);
+    assert.match(html, new RegExp(`<span class="version-badge">v${packageMetadata.version.replaceAll('.', '\\.')}`), `${name} needs the package version badge`);
+    assert.doesNotMatch(html, /<script[^>]+type="importmap"/i, `${name} must not imply an inapplicable native-browser entry`);
 
     for (const requiredPage of pageNames) {
         assert.match(html, new RegExp(`href="\\./${requiredPage.replace('.', '\\.')}"`), `${name} does not link ${requiredPage}`);
@@ -98,8 +110,20 @@ for (const [name, html] of pages) {
     }
 }
 
+assert.match(packageMetadata.description, /^Node\.js-only\b/);
+assert.equal(packageMetadata.engines.node, '>=22.12.0');
+assert.equal(Object.hasOwn(packageMetadata, 'browser'), false);
+assert.equal(Object.hasOwn(packageMetadata, 'dependencies'), false);
+assert.equal(Object.hasOwn(packageMetadata, 'optionalDependencies'), false);
+assert.equal(Object.hasOwn(packageMetadata, 'peerDependencies'), false);
+
+for (const [name, contents] of packedDocumentation) {
+    assert.ok(contents.includes(runtimeBoundary), `${name} needs the canonical Node-only boundary`);
+}
+
 const index = pages.get('index.html');
-assert.match(index, /Command-line power\s*<em>for JavaScript\.<\/em>/i);
+assert.match(index, /Command-line power\s*<em>for Node\.js\.<\/em>/i);
+assert.match(index, /<title>node-cmd v6 — command-line power for Node\.js<\/title>/i);
 assert.match(index, /npm install node-cmd/);
 assert.match(index, /zero runtime dependencies/i);
 assert.match(index, /53\s*\/?\s*53/);
@@ -142,6 +166,9 @@ assert.match(testing, /test-results\.json/);
 assert.match(testing, /Windows/);
 assert.match(testing, /macOS/);
 assert.match(testing, /Ubuntu/);
+assert.match(testing, /test:runtime-contract/);
+assert.match(testing, /Native-browser conformance: not applicable/i);
+assert.match(testing, /No browser entry, import map, playground, or Chrome inventory is provided/i);
 
 const benchmarks = pages.get('benchmarks.html');
 assert.match(benchmarks, /Node\.js 22\.12\.0/);
@@ -207,8 +234,9 @@ assert.match(security, /security\/advisories\/new/);
 
 assert.match(pages.get('migration.html'), /v5\s*→\s*v6/);
 assert.match(pages.get('migration.html'), /Upgrade checklist/);
-assert.match(pages.get('changelog.html'), /node-cmd 6\.0\.0/);
-assert.match(pages.get('changelog.html'), /2026-08-14/);
+assert.match(pages.get('changelog.html'), /node-cmd 6\.0\.1/);
+assert.match(pages.get('changelog.html'), /2026-08-23/);
+assert.match(pages.get('changelog.html'), /6\.0\.0 · 2026-08-14/);
 assert.match(pages.get('changelog.html'), /Current test gate<\/span><strong>53\s*\/\s*53/);
 assert.match(pages.get('changelog.html'), /A 17-case JavaScript API suite/);
 
@@ -229,4 +257,4 @@ assert.match(css, /\.benchmark-chart/);
 assert.match(css, /\.why-band/);
 assert.ok(socialImage.size > 0);
 
-process.stdout.write(`Validated ${pages.size} engineer documentation pages, ${basename(resolve(siteRoot, 'script.js'))}, benchmark data and charts, shared styles, navigation, and assets.\n`);
+process.stdout.write(`Validated ${pages.size} engineer documentation pages, the Node-only runtime boundary, ${basename(resolve(siteRoot, 'script.js'))}, benchmark data and charts, shared styles, navigation, and assets.\n`);

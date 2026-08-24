@@ -1,7 +1,7 @@
 {
   "name": "node-cmd",
-  "version": "6.0.0",
-  "description": "Command-line power for JavaScript: run shell commands, launch executables, and control child processes with zero runtime dependencies.",
+  "version": "6.0.1",
+  "description": "Node.js-only command-line power: run shell commands, launch executables, and control child processes with zero runtime dependencies.",
   "type": "commonjs",
   "main": "./cmd.js",
   "module": "./cmd.mjs",
@@ -35,12 +35,13 @@
     "test:behavioral": "node ./test/node.mjs behavioral",
     "test:integration": "node ./test/node.mjs integration",
     "test:regression": "node ./test/node.mjs regression",
+    "test:runtime-contract": "node ./scripts/validate-runtime-contract.js",
     "benchmark": "node ./benchmark/run.js",
     "benchmark:chart": "node ./benchmark/render-chart.js ./benchmark/reference.json ./assets",
     "coverage": "vanilla-test coverage node",
     "test:package": "node ./scripts/package-smoke.js",
     "site:check": "node ./scripts/validate-site.js",
-    "verify": "npm test && npm run coverage && npm run test:package && npm run site:check"
+    "verify": "npm test && npm run coverage && npm run test:runtime-contract && npm run test:package && npm run site:check"
   },
   "repository": {
     "type": "git",

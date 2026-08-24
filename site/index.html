@@ -3,20 +3,20 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Command-line power for JavaScript. Run shell commands, launch executables, stream output, write to stdin, and control child processes from Node.js.">
+        <meta name="description" content="Command-line power for Node.js. Run shell commands, launch executables, stream output, write to stdin, and control child processes.">
         <meta name="theme-color" content="#060b16">
         <meta property="og:type" content="website">
-        <meta property="og:title" content="node-cmd v6 — command-line power for JavaScript">
+        <meta property="og:title" content="node-cmd v6 — command-line power for Node.js">
         <meta property="og:description" content="Shell commands, direct executable calls, and live process streams from one zero-runtime-dependency Node.js API.">
         <meta property="og:url" content="https://riaevangelist.github.io/node-cmd/">
         <meta property="og:image" content="https://riaevangelist.github.io/node-cmd/og.png">
         <meta property="og:image:alt" content="node-cmd — commands, files, and streams">
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="node-cmd v6 — command-line power for JavaScript">
-        <meta name="twitter:description" content="Shell commands, direct executable calls, and live process streams from JavaScript.">
+        <meta name="twitter:title" content="node-cmd v6 — command-line power for Node.js">
+        <meta name="twitter:description" content="Shell commands, direct executable calls, and live process streams from Node.js.">
         <meta name="twitter:image" content="https://riaevangelist.github.io/node-cmd/og.png">
         <link rel="canonical" href="https://riaevangelist.github.io/node-cmd/">
-        <title>node-cmd v6 — command-line power for JavaScript</title>
+        <title>node-cmd v6 — command-line power for Node.js</title>
         <link rel="stylesheet" href="./styles.css">
         <script src="./script.js" defer></script>
     </head>
@@ -29,7 +29,7 @@
                 <a class="wordmark" href="./index.html" aria-label="node-cmd home">
                     <span class="wordmark-mark" aria-hidden="true">&gt;_</span>
                     <span class="wordmark-name">node-cmd</span>
-                    <span class="version-badge">v6.0.0</span>
+                    <span class="version-badge">v6.0.1</span>
                 </a>
                 <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-navigation" data-menu-button>
                     <span class="menu-button-label">Menu</span>
@@ -51,8 +51,8 @@
         <main id="main">
             <section class="hero">
                 <div class="hero-copy">
-                    <p class="eyebrow"><span>v6.0.0</span> Process control for Node.js</p>
-                    <h1>Command-line power <em>for JavaScript.</em></h1>
+                    <p class="eyebrow"><span>v6.0.1</span> Process control for Node.js</p>
+                    <h1>Command-line power <em>for Node.js.</em></h1>
                     <p class="hero-lede">Run shell commands, launch executables, stream output, write to stdin, and control child processes from Node.js—with zero runtime dependencies.</p>
                     <div class="hero-actions">
                         <a class="button button-primary" href="./api.html">Open the API reference <span aria-hidden="true">→</span></a>
@@ -60,7 +60,7 @@
                     </div>
                     <ul class="hero-signals">
                         <li><span aria-hidden="true">✓</span> Classic <code>run</code> / <code>runSync</code></li>
-                        <li><span aria-hidden="true">✓</span> CommonJS + ESM</li>
+                        <li><span aria-hidden="true">✓</span> Node.js CommonJS + ESM</li>
                         <li><span aria-hidden="true">✓</span> Node.js 22.12+</li>
                     </ul>
                 </div>
@@ -89,6 +89,8 @@
                     </div>
                 </div>
             </section>
+
+            <aside class="callout runtime-boundary" data-runtime-boundary aria-label="Runtime boundary"><strong>Runtime boundary.</strong> node-cmd is Node.js-only. It does not run in browsers, with or without a bundler. Its API requires <code>node:child_process</code> and operating-system process access; “native ESM” means native Node.js ESM.</aside>
 
             <section class="fact-strip" aria-label="Project facts">
                 <div><strong>0</strong><span>runtime dependencies</span></div>
@@ -145,7 +147,7 @@
                 <div class="section-heading reveal">
                     <p class="eyebrow">Install and execute</p>
                     <h2>JavaScript in. Operating-system process out.</h2>
-                    <p>No transpiler, bundler, TypeScript runtime, or application dependency tree.</p>
+                    <p>In Node.js, consume either shipped entry directly—no transpiler, bundler, TypeScript runtime, or application dependency tree.</p>
                 </div>
                 <div class="install-command reveal">
                     <div><span>Install node-cmd</span><code>npm install node-cmd</code></div>
@@ -155,7 +157,7 @@
                     <div class="code-toolbar">
                         <div class="code-tabs" role="tablist" aria-label="Quick-start format">
                             <button id="tab-cjs" type="button" role="tab" aria-selected="true" aria-controls="panel-cjs" tabindex="0" data-tab="cjs">CommonJS</button>
-                            <button id="tab-esm" type="button" role="tab" aria-selected="false" aria-controls="panel-esm" tabindex="-1" data-tab="esm">ESM</button>
+                            <button id="tab-esm" type="button" role="tab" aria-selected="false" aria-controls="panel-esm" tabindex="-1" data-tab="esm">Node.js ESM</button>
                             <button id="tab-direct" type="button" role="tab" aria-selected="false" aria-controls="panel-direct" tabindex="-1" data-tab="direct">Direct file</button>
                         </div>
                         <button class="copy-button" type="button" data-copy-current>Copy</button>

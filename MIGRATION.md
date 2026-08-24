@@ -1,15 +1,17 @@
 # Migrating from node-cmd v5 to v6
 
-Version 6 preserves the small CommonJS API while adding native ES module exports, Promise methods, direct executable methods, an unbuffered stream method, and forwarded Node child-process options. The major-version change primarily reflects the new Node.js runtime floor and explicit package exports.
+Version 6 preserves the small CommonJS API while adding native Node.js ES module exports, Promise methods, direct executable methods, an unbuffered stream method, and forwarded Node child-process options. The major-version change primarily reflects the new Node.js runtime floor and explicit package exports.
 
 ## Runtime
 
 - Upgrade to Node.js 22.12 or newer.
 - Install normally with `npm install node-cmd`.
 - The package still has zero runtime dependencies.
-- No transpiler, bundler, or TypeScript toolchain is required.
+- Node.js consumes either shipped entry directly; no transpiler, bundler, or TypeScript toolchain is required.
 
-## CommonJS and ES modules
+**node-cmd is Node.js-only. It does not run in browsers, with or without a bundler.** Its API requires Node's built-in `node:child_process` module and operating-system process access. No browser entry or import map is provided, and “native ESM” means native Node.js ESM.
+
+## CommonJS and ES modules in Node.js
 
 The existing CommonJS import remains supported:
 
@@ -22,7 +24,7 @@ cmd.run('node --version', (error, data, stderr) => {
 });
 ```
 
-Version 6 also provides a native ES module entry point with default and named exports:
+Version 6 also provides a native Node.js ES module entry point with default and named exports:
 
 ```js
 import cmd, {

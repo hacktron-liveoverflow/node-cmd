@@ -4,11 +4,14 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+## [6.0.1] - 2026-08-23
+
 ### Added
 
 - Added a dependency-free benchmark harness that compares all seven execution paths with their matching `node:child_process` primitives, retains raw paired samples, and measures JavaScript dispatch separately from process completion.
 - Published reproducible Node.js 22.12.0 benchmark charts and raw results in the README and a dedicated engineer-facing site page.
-- Added concise “Why node-cmd?” guidance to the README and site overview; shipped runtime code and the package version remain unchanged.
+- Added concise “Why node-cmd?” guidance to the README and site overview; shipped runtime code remains unchanged.
+- Added a runtime-contract gate that fixes the 53-case behavioral inventory, audits runtime import specifiers, and verifies the Node-only boundary in package metadata, documentation, examples, and the packed artifact.
 
 ### Changed
 
@@ -17,14 +20,15 @@ All notable changes to this project are documented here.
 - Removed the former third-party coverage and browser packages from the development dependency graph; the test tool now depends only on the author's `ansi-colors-es6` and `strong-type` modules.
 - Published the normalized, ANSI-free `test-results.json` artifact alongside the engineer-readable HTML coverage report.
 - Added focused overload, explicit-stdio, and non-Error fallback checks, bringing all 2.1 native V8 range metrics and enforced thresholds to 100%.
-- Split the same behavior coverage into 48 focused, non-overlapping Unit, Functional, Integration, and Regression cases with independent `test:*` commands; runtime code and package version are unchanged.
+- Split the same behavior coverage into 48 focused, non-overlapping Unit, Functional, Integration, and Regression cases with independent `test:*` commands; runtime code is unchanged.
 - Added five independently runnable Behavioral scenarios for shell composition, partial failure output, buffer limits, direct-process timeouts, and output observed before stream completion, bringing the suite to 53 cases.
+- **node-cmd is Node.js-only. It does not run in browsers, with or without a bundler.** The package now states this longstanding boundary explicitly; browser entries, import maps, native-Chrome conformance, and runtime-dependency conflict tests do not apply because the API requires `node:child_process` and has zero runtime dependencies.
 
 ## [6.0.0] - 2026-08-14
 
 ### Added
 
-- Native CommonJS and ES module entry points through conditional package exports.
+- Native Node.js CommonJS and ES module entry points through conditional package exports.
 - Named ES module exports alongside the compatible default API object.
 - Optional Node `child_process` options for asynchronous and synchronous command execution.
 - `runPromise()` with `runPromisified` as a compatibility alias. Both resolve with `{ stdout, stderr }`.

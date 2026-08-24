@@ -1,3 +1,4 @@
+// Node.js-only example: node-cmd uses node:child_process and does not run in browsers.
 'use strict';
 
 const cmd = require('../cmd.js');

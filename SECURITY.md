@@ -10,6 +10,8 @@ Do not open a public issue with exploit details before the report has been revie
 
 `node-cmd` starts operating-system processes. It is not a command sanitizer, privilege boundary, sandbox, process-tree supervisor, secret store, or authorization system. The caller is responsible for deciding which program may run, which arguments it receives, where it runs, what environment it inherits, and how its output is handled.
 
+**node-cmd is Node.js-only. It does not run in browsers, with or without a bundler.** Its API requires Node's built-in `node:child_process` module and operating-system process access. A browser-targeted bundle or import map cannot grant browser JavaScript child-process privileges.
+
 ## Shell command strings
 
 `run()`, `runPromise()`, and `runSync()` execute command strings through a shell. Shell metacharacters, substitutions, quoting, redirection, pipelines, and command separators are interpreted by that shell.

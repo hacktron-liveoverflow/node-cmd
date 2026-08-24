@@ -1,4 +1,4 @@
-[![node-cmd — command-line and process control for JavaScript](https://raw.githubusercontent.com/RIAEvangelist/node-cmd/main/assets/node-cmd-header.png)](https://riaevangelist.github.io/node-cmd/)
+[![node-cmd — command-line and process control for Node.js](https://raw.githubusercontent.com/RIAEvangelist/node-cmd/main/assets/node-cmd-header.png)](https://riaevangelist.github.io/node-cmd/)
 
 # node-cmd
 
@@ -17,9 +17,15 @@
 
 [![Sponsor RIAEvangelist](https://img.shields.io/static/v1?label=Sponsor%20RIAEvangelist&message=%E2%9D%A4&logo=GitHub)](https://github.com/sponsors/RIAEvangelist)
 
-**Command-line power for JavaScript.** Run shell commands, launch executables, stream output, write to stdin, and control child processes from Node.js. `node-cmd` has zero runtime dependencies and supports both CommonJS and native ES modules.
+**Command-line power for Node.js.** Run shell commands, launch executables, stream output, write to stdin, and control child processes. `node-cmd` has zero runtime dependencies and supports both Node.js CommonJS and native Node.js ES modules.
 
 The original `run()` and `runSync()` APIs remain available. Version 6 adds forwarded execution options, Promise APIs, direct executable APIs that avoid a shell by default, an unbuffered `spawn` wrapper, and explicit cancellation support.
+
+## Runtime boundary
+
+**node-cmd is Node.js-only. It does not run in browsers, with or without a bundler.** Its public API requires Node's built-in `node:child_process` module and operating-system process access. “Native ESM” in this project means native Node.js ESM.
+
+No browser entry, browser shim, import map, playground, or native-Chrome suite is provided because browsers cannot expose child-process control. A Node-targeted bundler may externalize Node built-ins, but a browser-targeted bundle cannot grant browser JavaScript operating-system process privileges. Native-browser conformance and runtime-dependency conflict testing are not applicable; the package has zero runtime dependencies.
 
 ## Why node-cmd?
 
@@ -54,7 +60,7 @@ cmd.run('node --version', (error, data, stderr) => {
 });
 ```
 
-### ES modules
+### ES modules in Node.js
 
 ```js
 import { runPromise } from 'node-cmd';
@@ -109,7 +115,7 @@ The largest measured dispatch delta was roughly 3.8 million times smaller than i
 | `runFilePromisified` | Alias of `runFilePromise` | `Promise<{ stdout, stderr }>` |
 | `runStream` | `runStream(file, args?, options?)` | `ChildProcess` |
 
-The default export and CommonJS export expose the same methods. Native ESM also provides named exports.
+The default export and CommonJS export expose the same methods. Native Node.js ESM also provides named exports.
 
 ### `run(command, options?, callback?)`
 
@@ -345,6 +351,7 @@ npm run test:functional
 npm run test:behavioral
 npm run test:integration
 npm run test:regression
+npm run test:runtime-contract
 npm run coverage
 npm run test:package
 npm run benchmark

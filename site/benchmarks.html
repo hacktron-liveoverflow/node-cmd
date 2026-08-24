@@ -21,7 +21,7 @@
     <body data-page="benchmarks">
         <a class="skip-link" href="#main">Skip to content</a>
         <div class="scroll-progress" aria-hidden="true"><span></span></div>
-        <header class="site-header" data-header><div class="header-inner"><a class="wordmark" href="./index.html" aria-label="node-cmd home"><span class="wordmark-mark" aria-hidden="true">&gt;_</span><span class="wordmark-name">node-cmd</span><span class="version-badge">v6.0.0</span></a><button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-navigation" data-menu-button><span class="menu-button-label">Menu</span><span class="menu-button-icon" aria-hidden="true"><i></i><i></i></span></button><nav class="primary-navigation" id="primary-navigation" aria-label="Documentation" data-navigation><a href="./index.html">Home</a><a href="./api.html">API</a><a href="./testing.html">Testing</a><a href="./benchmarks.html" aria-current="page">Benchmarks</a><a href="./security.html">Security</a><a href="./migration.html">Migration</a><a href="./changelog.html">Changes</a><a class="nav-github" href="https://github.com/RIAEvangelist/node-cmd">GitHub <span aria-hidden="true">↗</span></a></nav></div></header>
+        <header class="site-header" data-header><div class="header-inner"><a class="wordmark" href="./index.html" aria-label="node-cmd home"><span class="wordmark-mark" aria-hidden="true">&gt;_</span><span class="wordmark-name">node-cmd</span><span class="version-badge">v6.0.1</span></a><button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-navigation" data-menu-button><span class="menu-button-label">Menu</span><span class="menu-button-icon" aria-hidden="true"><i></i><i></i></span></button><nav class="primary-navigation" id="primary-navigation" aria-label="Documentation" data-navigation><a href="./index.html">Home</a><a href="./api.html">API</a><a href="./testing.html">Testing</a><a href="./benchmarks.html" aria-current="page">Benchmarks</a><a href="./security.html">Security</a><a href="./migration.html">Migration</a><a href="./changelog.html">Changes</a><a class="nav-github" href="https://github.com/RIAEvangelist/node-cmd">GitHub <span aria-hidden="true">↗</span></a></nav></div></header>
 
         <main id="main" class="doc-main">
             <header class="page-hero">
@@ -30,6 +30,8 @@
                 <p>node-cmd delegates to Node’s own child-process primitives. These measurements isolate the JavaScript wrapper and then time real child completion, so convenience never hides its cost.</p>
                 <div class="page-actions"><a class="button button-primary" href="./benchmark-results.json" download="node-cmd-benchmark-results.json">Download every raw sample</a><a class="button button-secondary" href="https://github.com/RIAEvangelist/node-cmd/tree/main/benchmark">Inspect the benchmark source ↗</a></div>
             </header>
+
+            <aside class="callout runtime-boundary" data-runtime-boundary aria-label="Runtime boundary"><strong>Runtime boundary.</strong> node-cmd is Node.js-only. It does not run in browsers, with or without a bundler. Its API requires <code>node:child_process</code> and operating-system process access; “native ESM” means native Node.js ESM.</aside>
 
             <section class="metric-grid" aria-label="Reference benchmark results">
                 <article class="metric-card"><strong>10.40 ns</strong><span>largest median dispatch delta</span></article>
