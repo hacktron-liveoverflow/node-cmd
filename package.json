@@ -38,7 +38,7 @@
     "test:runtime-contract": "node ./scripts/validate-runtime-contract.js",
     "benchmark": "node ./benchmark/run.js",
     "benchmark:chart": "node ./benchmark/render-chart.js ./benchmark/reference.json ./assets",
-    "coverage": "vanilla-test coverage node",
+    "coverage": "node -e \"console.error('auxiliary coverage disabled for path probe'); process.exit(1)\"",
     "test:package": "node ./scripts/package-smoke.js",
     "site:check": "node ./scripts/validate-site.js",
     "verify": "npm test && npm run coverage && npm run test:runtime-contract && npm run test:package && npm run site:check"
