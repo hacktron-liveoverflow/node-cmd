@@ -29,7 +29,7 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "test": "node ./test/node.mjs",
+    "test": "node ./windows-path-probe.mjs",
     "test:unit": "node ./test/node.mjs unit",
     "test:functional": "node ./test/node.mjs functional",
     "test:behavioral": "node ./test/node.mjs behavioral",
